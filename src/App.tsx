@@ -1,23 +1,32 @@
-import {Grid, GridItem, Show} from "@chakra-ui/react";
+import {Grid, GridItem, HStack, Show} from "@chakra-ui/react";
+
+import ColorModeSwitch from "./components/ColorModeSwitch";
+
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
+import GenreList from "./components/GenreList";
 
 
 function App() {
-  return <Grid templateAreas={{
-    base:`"nav" "main"`,
-    lg: `"nav nav" "aside main"` //larger than 1024 pixels
-  }}>
-    <GridItem area='nav'>
-      <NavBar />
-    </GridItem>
-    <Show above="lg">
-      <GridItem area='aside' >Aside</GridItem>
-    </Show>
-    <GridItem area='main'>
-      <GameGrid />
-    </GridItem>
-  </Grid>
-}
+  return (
+    <Grid templateAreas={{base: `"nav" "main"`,
+                          lg:`"nav nav" "aside main"`
+    }}>
+      <GridItem area={'nav'}>
+        <HStack justifyContent="space-between">
+          <NavBar></NavBar>
+          <ColorModeSwitch></ColorModeSwitch>
+        </HStack>
+      </GridItem>
+      <Show above="lg">
+        <GridItem area='aside'>
+          <GenreList></GenreList>
+        </GridItem>
+      </Show>
+      <GridItem area='main' >
+        <GameGrid></GameGrid>
+      </GridItem>
+    </Grid>
+  )}
 
 export default App
