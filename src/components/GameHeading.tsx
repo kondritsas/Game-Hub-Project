@@ -12,7 +12,7 @@ const GameHeading = ({gameQuery}: Props) => {
 
 
   return (
-    <Heading as='h1' marginY={5} fontSize='5xl'>{heading}</Heading>
+    <Heading color="gray.800"  as='h1' marginY={5} fontSize='5xl'>{heading}</Heading>
   )
 }
 
