@@ -1,15 +1,14 @@
-import { Box, Button, HStack, Heading, Image, List, ListItem, Spinner, Text } from '@chakra-ui/react';
-import useGenres, { Genre } from '../hooks/useGenres';
+import { Box, Button, HStack, Heading, Image, List, ListItem, Spinner} from '@chakra-ui/react';
+import useGenres from '../hooks/useGenres';
 import getCroppedImageUrl from '../services/image-urls';
-import GenreSkeleton from './GenreSkeleton';
+import useGameQueryStore from '../store';
 
-interface Props {
-  onSelectGenre: (genre: Genre) => void
-  selectedGenre: Genre | null
-}
 
-const GenreList = ({selectedGenre,onSelectGenre}: Props) => {
+const GenreList = () => {
   const {data, error, isLoading} = useGenres();
+  const selectedGenreId = useGameQueryStore((s)=>s.gameQuery.genreId);
+  const setSelectedGenreId = useGameQueryStore((s)=>s.setGenreId);
+
   if(error) return null;
   if(isLoading) return <Spinner />;
 
@@ -18,11 +17,11 @@ const GenreList = ({selectedGenre,onSelectGenre}: Props) => {
       <>
         <Heading fontSize={'2xl'} marginBottom={3} color="white">Genres</Heading>
         <List>
-          {data.map((genre)=> 
+          {data?.results.map((genre)=> 
             <ListItem key={genre.id} paddingY='5px'>
               <HStack>
                 <Image objectFit={'cover'} boxSize='32px' borderRadius={8} src={getCroppedImageUrl(genre.image_background)}></Image>
-                <Button whiteSpace='normal' textAlign='left' onClick={()=>onSelectGenre(genre)} fontSize='lg' variant='link' fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'} color="white">{genre.name}</Button>
+                <Button whiteSpace='normal' textAlign='left' onClick={()=>setSelectedGenreId(genre.id)} fontSize='lg' variant='link' fontWeight={genre.id === selectedGenreId ? 'bold' : 'normal'} color="white">{genre.name}</Button>
               </HStack>
             </ListItem>)}
         </List>

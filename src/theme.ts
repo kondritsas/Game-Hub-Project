@@ -19,13 +19,6 @@ const theme = extendTheme({
             800: "#4e3200",
             900: "#1e1000"
         }
-    },
-    styles: {
-        global: {
-          body: {
-            bg: "orange.500" // Set the background color of the entire page to orange 500
-          }
-        }
     }
 })
 
